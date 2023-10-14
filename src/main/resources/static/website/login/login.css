@@ -1,0 +1,80 @@
+#login-div-container {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+
+#login-div {
+    position: sticky;
+    transform: translateY(-100%);
+    top: 50%;
+    width: 100%;
+
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+
+h1 {
+    margin: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+#login-div input {
+    border: none;
+    margin-top: 2em;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    border-radius: 1000px;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    width: 100%;
+}
+
+#login-div input:focus {
+    animation: outline 1s ease-in-out;
+    border: none;
+}
+
+@keyframes outline{
+    0% {
+        outline: purple solid 1px;
+    }
+    99% {
+        outline: transparent solid 50px;
+    }
+}
+
+#user-input {
+    width: 100%;
+}
+
+#pass-input {
+    width: 100%;
+
+}
+
+#login-button {
+
+    border: none;
+
+    padding: 1em;
+    margin-top: 1em;
+    background-color: rebeccapurple;
+    border-radius: 1000px;
+    width: 100%;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+#login-div a {
+    color: blueviolet;
+    text-decoration: none;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-size: 1.5em;
+}

@@ -1,0 +1,67 @@
+:root {
+    --data-url: "default";
+}
+
+.jump {
+    display: inline-flex;
+    animation: jump 1s ease-in-out infinite;
+}
+
+
+.hover-font {
+    display: inline-flex;
+    transform: scale(var(--scale, 1));
+
+    text-shadow: black 2px  2px, black -2px -2px, black -2px  2px, black  2px -2px,
+    black 2px  0px, black  0px  2px, black -2px  0px, black  0px -2px;
+}
+
+
+.hover-cursor:hover {
+    cursor: var(--data-url), auto;
+}
+
+
+.glow {
+   animation: glow 1s ease-in-out infinite alternate
+}
+
+.sink{
+    display: inline-flex;
+    transition: all 0.2s linear;
+}
+
+.sink:hover {
+    transform: translateY(10px);
+}
+
+
+@keyframes jump {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@-webkit-keyframes glow {
+    from {
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+    }
+    to {
+        text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+    }
+}
+
+.space {
+    margin: 0 5px;
+}
+
+.no-wrap {
+    white-space:nowrap;
+    display: inline;
+}

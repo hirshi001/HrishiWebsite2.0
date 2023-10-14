@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="icon" type="image/png" href="/website/images/favicomatic/favicon-32x32.png" sizes="32x32"/>
+    <link rel="icon" type="image/png" href="/website/images/favicomatic/favicon-16x16.png" sizes="16x16"/>
+
+    <title>Hrishi's Website</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap" rel="stylesheet">
+    <link href="/website/index.css" rel="stylesheet">
+    <link href="/website/projects/projects.css" rel="stylesheet">
+    <link href="/website/sidebar/sidebarstyles.css" rel="stylesheet">
+    <link href="/website/styles/fader.css" rel="stylesheet">
+
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/>
+
+    <script src="/website/sidebar/sidebarscript.js" defer onload="onLoad()"></script>
+    <script src="/website/projects/loadProjects.js" defer onload="loadProjects()"></script>
+</head>
+<body>
+
+<svg id="fader"></svg>
+<script>
+    if (window.AnimationEvent) {
+        const fader = document.getElementById('fader');
+        fader.classList.add('fade-out');
+    }
+</script>
+
+<!-- Must include this and the sidebarscript.js for the styles to appear. Include in every file -->
+<div id="sidebar-div"></div>
+
+<div id="content">
+
+    <div id="games">
+        <span>Games</span>
+        <div class="current-project">
+            <div id="project-game-display">
+                <div class="click-to-start">
+                    <img id="thumbnail" src="https://i.ytimg.com/vi/2ZU2Qn0A5xY/maxresdefault.jpg" alt="Project Image">
+                    <button onclick="clickToStart()">Click To Start</button>
+                </div>
+            </div>
+            <span id="project-title">-</span>
+            <a id="repo_link" href="" target="_blank">
+                View Project Repository
+            </a>
+            <span id="project-description">-</span>
+        </div>
+
+        <div id="project-links" class="middle"></div>
+    </div>
+    <div id="libraries">
+        <span>Libraries</span>
+        <div id="library-links" class="middle"></div>
+
+    </div>
+</div>
+
+</body>
+</html>

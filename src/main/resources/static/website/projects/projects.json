@@ -1,0 +1,33 @@
+{
+  "default-project": "Pixel Wars",
+  "projects": [
+    {
+      "name": "Pixel Wars",
+      "img": "https://img.itch.zone/aW1nLzEyNTA0MDcyLnBuZw==/180x143%23c/vo4U2U.png",
+      "alt-image": "https://i.ytimg.com/vi/2ZU2Qn0A5xY/maxresdefault.jpg",
+      "url": "https://hirshi001.itch.io/pixelwars",
+      "game-embed": "<iframe frameborder=\"0\" src=\"https://itch.io/embed-upload/7586480?color=333333\" allowfullscreen=\"\" width=\"640\" height=\"500\"><a href=\"https://hirshi001.itch.io/pixelwars\">Play PixelWars on itch.io</a></iframe>"
+    },
+    {
+      "name": "Chess",
+      "img": "https://img.itch.zone/aW1nLzEyNTEzOTAzLnBuZw==/315x250%23c/%2Fy5KXR.png",
+      "alt-image": "https://i.ytimg.com/vi/2ZU2Qn0A5xY/maxresdefault.jpg",
+      "url": "https://hirshi001.itch.io/bnchess",
+      "game-embed": "<iframe frameborder=\"0\" src=\"https://itch.io/embed-upload/7469085?color=333333\" allowfullscreen=\"\" width=\"640\" height=\"500\"><a href=\"https://hirshi001.itch.io/bnchess\">Play Chess on itch.io</a></iframe>"
+    },
+    {
+      "name": "Universal Empire",
+      "img": "https://img.itch.zone/aW1nLzEyNTE3MTczLnBuZw==/315x250%23c/SZuPrM.png",
+      "alt-image": "https://i.ytimg.com/vi/2ZU2Qn0A5xY/maxresdefault.jpg",
+      "url": "https://hirshi001.itch.io/universalempire",
+      "game-embed": "<iframe frameborder=\"0\" src=\"https://itch.io/embed-upload/7174908?color=333333\" allowfullscreen=\"\" width=\"640\" height=\"500\"><a href=\"https://hirshi001.itch.io/universalempire\">Play UniversalEmpire on itch.io</a></iframe>"
+    },
+    {
+      "name": "Ball Dodge",
+      "img": "https://img.itch.zone/aW1nLzEyNTE3MjMwLnBuZw==/315x250%23c/2qqLZt.png",
+      "alt-image": "https://i.ytimg.com/vi/2ZU2Qn0A5xY/maxresdefault.jpg",
+      "url": "https://hirshi001.itch.io/balldodge",
+      "game-embed": "<iframe frameborder=\"0\" src=\"https://itch.io/embed-upload/8138727?color=333333\" allowfullscreen=\"\" width=\"640\" height=\"380\"><a href=\"https://hirshi001.itch.io/balldodge\">Play BallDodge on itch.io</a></iframe>"
+    }
+  ]
+}

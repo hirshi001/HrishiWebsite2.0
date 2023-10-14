@@ -1,0 +1,68 @@
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.hidetake:gradle-ssh-plugin:2.10.1'
+    }
+}
+
+
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.1.2'
+    id 'io.spring.dependency-management' version '1.1.2'
+    id "io.freefair.lombok" version "8.2.2"
+    id 'org.hidetake.ssh' version '2.10.1'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    implementation 'mysql:mysql-connector-java:8.0.33'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+
+remotes {
+    server {
+        host = '54.151.47.62'
+        user = 'ec2-user'
+        identity = file('/Users/hrishikesh/secretkeypairname.pem')
+    }
+}
+
+tasks.register('pushServer') {
+    dependsOn(bootJar)
+    doLast {
+        // Copy the jar to the server using sftp
+        ssh.run {
+            session(remotes.server) {
+                put from: "${project.rootDir}/build/libs/SpringbootMicroservices-${version}.jar", into: '/home/ec2-user/SpringbootMicroservices.jar'
+            }
+        }
+    }
+}
