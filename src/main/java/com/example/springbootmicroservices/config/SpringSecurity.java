@@ -44,6 +44,7 @@ public class SpringSecurity {
                                 .requestMatchers("/projects.json").permitAll()
 
                                 .requestMatchers("/libraries.json").permitAll()
+                                .requestMatchers("/libScreenshot").permitAll()
 
                                 .requestMatchers("/accounts/register/**").permitAll()
                                 .requestMatchers("/accounts/users").hasRole("ADMIN")

@@ -108,15 +108,14 @@ function loadLibraries() {
             let descSpan = document.createElement("span")
             descSpan.innerText = library["description"]
 
-            let iframe = document.createElement("iframe")
-            iframe.src = library["url"]
-            iframe.width = "100%"
-            iframe.height = "100%"
+            let image = document.createElement("img")
+            image.src = "/libScreenshot?name=" + library["name"]
+            image.classList.add("library-image")
 
             libraryDiv.appendChild(span)
             libraryDiv.appendChild(descSpan)
             libraryList.appendChild(libraryDiv)
-            libraryList.appendChild(iframe)
+            libraryList.appendChild(image)
 
         }
     });

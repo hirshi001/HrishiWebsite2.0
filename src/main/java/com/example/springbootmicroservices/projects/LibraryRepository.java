@@ -11,6 +11,8 @@ public interface LibraryRepository extends JpaRepository<Library, Integer> {
 
     List<Library> findProjectsByNameContainingIgnoreCase(@Param("name") String name);
 
+    Library findByName(@Param("name") String name);
+
     Library findProjectByNameEqualsIgnoreCase(String name);
 
 }
