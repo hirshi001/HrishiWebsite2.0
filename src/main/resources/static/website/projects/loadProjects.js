@@ -2,7 +2,7 @@ let embed_link = "<iframe frameborder=\"0\" src=\"https://itch.io/embed-upload/7
 let clickToStartDiv = null
 
 addEventListener("hashchange", () => {
-    loadProjects()
+    setDisplayGame();
 })
 
 function clickToStart() {
@@ -28,7 +28,8 @@ function displayGame(link, name, img, repoLink, description) {
     parent.location.hash = name.toLowerCase()
 }
 
-function loadProjects() {
+
+function setDisplayGame(){
     let search = "";
     if(parent.location.hash==="") {
         search = "id=1"
@@ -44,8 +45,9 @@ function loadProjects() {
             displayGame(data["gameEmbed"], data["name"], data["image"], data["repositoryLink"], data["description"])
         })
     })
+}
 
-
+function loadProjects() {
     fetch("/projects.json").then(r => r.json()).then(data => {
         let projectList = document.getElementById("project-links")
         projectList.innerHTML = ""
@@ -84,3 +86,46 @@ function loadProjects() {
 
     });
 }
+
+function loadLibraries() {
+    fetch("/libraries.json").then(r => r.json()).then(data => {
+        let libraryList = document.getElementById("library-links")
+        libraryList.innerHTML = ""
+
+        for (let i = 0; i < data.length; i++) {
+            let library = data[i]
+            let libraryDiv = document.createElement("div")
+            libraryDiv.classList.add("library")
+
+            let span = document.createElement("span")
+            let link = document.createElement("a");
+            link.href = library["url"]
+            link.target = "_blank"
+            link.rel = "noopener noreferrer"
+            link.innerText = library["name"]
+            span.appendChild(link)
+
+            let descSpan = document.createElement("span")
+            descSpan.innerText = library["description"]
+
+            let iframe = document.createElement("iframe")
+            iframe.src = library["url"]
+            iframe.width = "100%"
+            iframe.height = "100%"
+
+            libraryDiv.appendChild(span)
+            libraryDiv.appendChild(descSpan)
+            libraryList.appendChild(libraryDiv)
+            libraryList.appendChild(iframe)
+
+        }
+    });
+}
+
+
+function onLoadProjects() {
+    loadProjects();
+    setDisplayGame();
+    loadLibraries();
+}
+

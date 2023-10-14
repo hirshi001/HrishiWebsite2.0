@@ -13,6 +13,9 @@ public class ProjectController {
     @Autowired
     ProjectsRepository projectsRepository;
 
+    @Autowired
+    LibraryRepository libraryRepository;
+
     @GetMapping("/projects.json")
     public List<Project> index(@RequestParam(value = "searchTerm", required = false) String searchTerm, @RequestParam(value = "id", required = false) Integer id) {
         if (searchTerm != null) {
@@ -29,6 +32,14 @@ public class ProjectController {
             return projectsRepository.findAll().stream().map(this::mapToProjectDisplay).toList();
         else
             return projectsRepository.findProjectsByNameContainingIgnoreCase(searchString).stream().map(this::mapToProjectDisplay).toList();
+    }
+
+    @GetMapping("/libraries.json")
+    public List<Library> libraries(@RequestParam(value = "search", required = false) String searchString) {
+        if (searchString == null)
+            return libraryRepository.findAll();
+        else
+            return libraryRepository.findProjectsByNameContainingIgnoreCase(searchString);
     }
 
     private ProjectDisplay mapToProjectDisplay(Project project) {
