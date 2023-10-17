@@ -18,13 +18,13 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class SpringbootMicroservicesApplication {
 
     private static final Logger LOG = LoggerFactory.getLogger(SpringbootMicroservicesApplication.class);
-    public static WebDriver driver;
+    public static volatile WebDriver driver;
 
     @Value("${chrome-driver.path}")
     public String chrome_driver_path;
 
 
-    @Value("${chrome-driver.use-path}")
+    @Value("${chrome-driver.use-path:#{false}}")
     public boolean chrome_driver_use_path;
 
     public static void main(String[] args) {
@@ -40,7 +40,7 @@ public class SpringbootMicroservicesApplication {
         if(chrome_driver_use_path) {
             System.setProperty("webdriver.chrome.driver", chrome_driver_path);
         }
-        LOG.info("Chrome driver path: " + chrome_driver_path);
+        LOG.info("Chrome driver path: " + System.getProperty("webdriver.chrome.driver"));
 
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless=new");

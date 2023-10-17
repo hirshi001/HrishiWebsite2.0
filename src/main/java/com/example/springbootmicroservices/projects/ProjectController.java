@@ -61,7 +61,7 @@ public class ProjectController {
             return libraryRepository.findProjectsByNameContainingIgnoreCase(searchString);
     }
 
-    @Scheduled(fixedRate = 1000 * 60 * 60, initialDelay = 0)
+    @Scheduled(fixedRate = 1000 * 60 * 60, initialDelay = 5000)
     public void updateLibraryScreenshots() {
         libraryScreenshots.clear();
         System.out.println("Updating library screenshots");
