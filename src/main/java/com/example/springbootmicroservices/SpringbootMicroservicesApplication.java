@@ -43,9 +43,11 @@ public class SpringbootMicroservicesApplication {
         LOG.info("Chrome driver path: " + System.getProperty("webdriver.chrome.driver"));
 
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless=new");
+        options.addArguments("no-sandbox");
+        options.addArguments("headless");
         options.addArguments("--window-size=1920,1080");
         options.addArguments("--disable-gpu");
+        options.addArguments("--disable-software-rasterizer");
 
         driver = new ChromeDriver(options);
         LOG.info("Chrome Driver created.");
