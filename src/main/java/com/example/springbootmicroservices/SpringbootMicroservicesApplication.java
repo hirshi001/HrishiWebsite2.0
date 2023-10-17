@@ -45,6 +45,7 @@ public class SpringbootMicroservicesApplication {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless=new");
         options.addArguments("--window-size=1920,1080");
+        options.addArguments("--disable-gpu");
 
         driver = new ChromeDriver(options);
         LOG.info("Chrome Driver created.");
