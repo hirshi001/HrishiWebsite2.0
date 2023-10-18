@@ -49,6 +49,11 @@ public class SpringbootMicroservicesApplication {
         options.addArguments("--disable-gpu");
         options.addArguments("--disable-software-rasterizer");
 
+        String os = System.getProperty("os.name");
+        if(os!=null && os.toLowerCase().contains("linux")) {
+            options.addArguments("--disable-dev-shm-usage");
+        }
+
         driver = new ChromeDriver(options);
         LOG.info("Chrome Driver created.");
     }
