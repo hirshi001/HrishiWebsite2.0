@@ -48,6 +48,7 @@ public class SpringbootMicroservicesApplication {
         options.addArguments("--window-size=1920,1080");
         options.addArguments("--disable-gpu");
         options.addArguments("--disable-software-rasterizer");
+        options.setExperimentalOption("useAutomationExtension", false);
 
         String os = System.getProperty("os.name");
         if(os!=null && os.toLowerCase().contains("linux")) {
