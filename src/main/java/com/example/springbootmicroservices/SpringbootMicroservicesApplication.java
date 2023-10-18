@@ -44,7 +44,7 @@ public class SpringbootMicroservicesApplication {
 
         ChromeOptions options = new ChromeOptions();
         options.addArguments("no-sandbox");
-        options.addArguments("headless");
+        options.addArguments("--headless=new");
         options.addArguments("--window-size=1920,1080");
         options.addArguments("--disable-gpu");
         options.addArguments("--disable-software-rasterizer");
