@@ -51,6 +51,7 @@ public class SpringbootMicroservicesApplication {
 
         String os = System.getProperty("os.name");
         if(os!=null && os.toLowerCase().contains("linux")) {
+            LOG.info("Disabling dev shm usage...");
             options.addArguments("--disable-dev-shm-usage");
         }
 
