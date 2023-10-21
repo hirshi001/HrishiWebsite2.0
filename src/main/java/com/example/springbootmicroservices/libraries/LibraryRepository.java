@@ -1,4 +1,4 @@
-package com.example.springbootmicroservices.projects;
+package com.example.springbootmicroservices.libraries;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
@@ -15,4 +15,5 @@ public interface LibraryRepository extends JpaRepository<Library, Integer> {
 
     Library findProjectByNameEqualsIgnoreCase(String name);
 
+    Library getById(@Param("id") int id);
 }

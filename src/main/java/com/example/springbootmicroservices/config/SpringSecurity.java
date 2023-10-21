@@ -42,6 +42,7 @@ public class SpringSecurity {
                         authorize.requestMatchers("/projects").permitAll()
                                 .requestMatchers("/projects_display.json").permitAll()
                                 .requestMatchers("/projects.json").permitAll()
+                                .requestMatchers("/githubrepoupdate").permitAll()
 
                                 .requestMatchers("/libraries.json").permitAll()
                                 .requestMatchers("/libScreenshot").permitAll()

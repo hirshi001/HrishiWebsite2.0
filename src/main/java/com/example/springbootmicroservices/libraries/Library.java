@@ -1,4 +1,4 @@
-package com.example.springbootmicroservices.projects;
+package com.example.springbootmicroservices.libraries;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -14,8 +14,9 @@ import lombok.Setter;
 @Table(name = "libraries")
 public class Library {
 
-    @Id
     private String name;
+    @Id
+    private int id;
     private String url;
     private String description;
 
@@ -23,6 +24,7 @@ public class Library {
     public String toString() {
         return "Project{" +
                 ", name='" + name + '\'' +
+                ", id=" + id +
                 ", url='" + url + '\'' +
                 '}';
     }

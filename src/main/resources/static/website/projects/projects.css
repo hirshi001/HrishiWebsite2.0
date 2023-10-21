@@ -130,13 +130,49 @@ a.project-title {
     color: white;
 }
 
+#library-links{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.library {
+
+    padding-bottom: 5%;
+    padding-top: 5%;
+    display: block;
+}
+
+.library-title {
+    font-size: 24pt;
+    font-weight: bold;
+    color: blue;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    display: block;
+}
+
+.library-title:hover {
+    color: darkblue;
+}
+
+.library-description {
+    font-size: 16pt;
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
 .library-image {
-    width: 300px;
+    width: 50%;
     height: auto;
     transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
 }
 
 .library-image:hover {
-    width: 600px;
+    width: 100%;
     height: auto;
 }

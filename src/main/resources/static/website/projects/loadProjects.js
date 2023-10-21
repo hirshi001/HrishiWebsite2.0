@@ -103,10 +103,12 @@ function loadLibraries() {
             link.target = "_blank"
             link.rel = "noopener noreferrer"
             link.innerText = library["name"]
+            link.classList.add("library-title")
             span.appendChild(link)
 
             let descSpan = document.createElement("span")
             descSpan.innerText = library["description"]
+            descSpan.classList.add("library-description")
 
             let image = document.createElement("img")
             image.src = "/libScreenshot?name=" + library["name"]
