@@ -37,6 +37,7 @@ public class LibraryController {
     public void githubRepoUpdated(@RequestBody JsonNode payloadBody, @RequestHeader("X-Hub-Signature-256") String signatureHeader) {
         try {
             // TODO: potentially blacklist IPs that send multiple invalid signatures
+            LOG.info("Received github repo update webhook");
             if (!GithubSignatureAuthenticator.verifySignature(payloadBody.toString(), githubWebhookSecret, signatureHeader))
                 return;
 
@@ -59,7 +60,6 @@ public class LibraryController {
     }
 
     public void updateLibraryScreenshot(Library library) {
-
         final WebDriver driver = DriverUtil.getDriver();
         synchronized (driver) {
             try {

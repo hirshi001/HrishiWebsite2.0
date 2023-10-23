@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.security.MessageDigest;
+import java.time.Duration;
 
 public class DriverUtil {
 
@@ -50,6 +51,7 @@ public class DriverUtil {
         options.addArguments("--window-size=1920,1080");
         options.addArguments("--disable-gpu");
         options.addArguments("--disable-software-rasterizer");
+        options.setPageLoadTimeout(Duration.ofSeconds(5));
 
         String os = System.getProperty("os.name");
         if(os!=null && os.toLowerCase().contains("linux")) {
