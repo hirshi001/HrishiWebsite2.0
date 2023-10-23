@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.event.ContextClosedEvent;
+import org.springframework.context.event.EventListener;
 
 
 @SpringBootApplication
@@ -17,6 +19,13 @@ public class SpringbootMicroservicesApplication {
     public static void main(String[] args) {
         DriverUtil.init();
         SpringApplication.run(SpringbootMicroservicesApplication.class, args);
+    }
+
+    @EventListener(ContextClosedEvent.class)
+    public void onContextClosedEvent(ContextClosedEvent contextClosedEvent) {
+        LOG.info("Context closed event received");
+        DriverUtil.destroy();
+        LOG.info("Chrome driver destroyed");
     }
 
 

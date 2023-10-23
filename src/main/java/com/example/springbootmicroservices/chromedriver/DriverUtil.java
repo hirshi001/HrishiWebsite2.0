@@ -19,6 +19,12 @@ public class DriverUtil {
     public static void init() {
         INSTANCE.initChromeDriver();
     }
+    public static void destroy() {
+        WebDriver driver = getDriver();
+        synchronized (driver) {
+            driver.quit();
+        }
+    }
 
     public static WebDriver getDriver() {
         return INSTANCE.driver;
@@ -51,7 +57,10 @@ public class DriverUtil {
         options.addArguments("--window-size=1920,1080");
         options.addArguments("--disable-gpu");
         options.addArguments("--disable-software-rasterizer");
-        options.setPageLoadTimeout(Duration.ofSeconds(5));
+
+        options.setImplicitWaitTimeout(Duration.ofSeconds(10));
+        options.setScriptTimeout(Duration.ofSeconds(10));
+        options.setPageLoadTimeout(Duration.ofSeconds(10));
 
         String os = System.getProperty("os.name");
         if(os!=null && os.toLowerCase().contains("linux")) {
