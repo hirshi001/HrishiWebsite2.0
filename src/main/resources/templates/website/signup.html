@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
 
@@ -36,10 +37,13 @@
 <div id="content">
   <div id="login-div-container">
     <div id="login-div">
-      <form th:action="@{/accounts/register}" method="post">
+      <form th:action="@{/accounts/register}" method="post" th:object="${userRegistrationDto}">
         <h1>Sign Up</h1>
         <label>
-          <input id="user-input" type="text" name="name" placeholder="Name" spellcheck="false" required>
+          <input id="name-input" type="text" name="name" placeholder="Name" spellcheck="false" required>
+        </label>
+        <label>
+          <input id="user-input" type="text" name="username" placeholder="Username" spellcheck="false" required>
         </label>
         <label>
           <input id="email-input" type="email" name="email" placeholder="Email" spellcheck="false" required>

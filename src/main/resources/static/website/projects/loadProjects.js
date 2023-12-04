@@ -12,7 +12,7 @@ function clickToStart() {
     currentProject.innerHTML = embed_link + currentProject.innerHTML
 }
 
-function displayGame(link, name, img, repoLink, description) {
+function displayGame(link, name, img, repoLink, description, updateHash = false) {
     if (clickToStartDiv != null) {
         let currentProject = document.getElementById("project-game-display")
         currentProject.innerHTML = ""
@@ -25,30 +25,35 @@ function displayGame(link, name, img, repoLink, description) {
     document.getElementById("project-title").textContent = name ? name : "Name not provided."
     document.getElementById("project-description").innerText = description ? description : "Description not provided."
     embed_link = link
-    parent.location.hash = name.toLowerCase()
+    if (updateHash) {
+        parent.location.hash = name.toLowerCase()
+    }
 }
 
 
-function setDisplayGame(){
+function setDisplayGame() {
     let search = "";
-    if(parent.location.hash==="") {
+    let hash = parent.location.hash.substring(1).toLowerCase()
+    let updateHash = !document.getElementById(hash)
+
+    if (parent.location.hash === "") {
         search = "id=1"
-    }else{
+    } else {
         search = "searchTerm=" + parent.location.hash.substring(1).replace("-", " ")
     }
-    fetch("/projects.json?"+search).then(r => r.json()).then(data => {
+    fetch("/projects.json?" + search).then(r => r.json()).then(data => {
         data = data[0]
-        displayGame(data["gameEmbed"], data["name"], data["image"], data["repositoryLink"], data["description"])
+        displayGame(data["gameEmbed"], data["name"], data["image"], data["repositoryLink"], data["description"], updateHash)
     }).catch((e) => {
         fetch("/projects.json?id=1").then(r => r.json()).then(data => {
             data = data[0]
-            displayGame(data["gameEmbed"], data["name"], data["image"], data["repositoryLink"], data["description"])
+            displayGame(data["gameEmbed"], data["name"], data["image"], data["repositoryLink"], data["description"], updateHash)
         })
     })
 }
 
 function loadProjects() {
-    fetch("/projects.json").then(r => r.json()).then(data => {
+    return fetch("/projects.json").then(r => r.json()).then(data => {
         let projectList = document.getElementById("project-links")
         projectList.innerHTML = ""
 
@@ -84,11 +89,13 @@ function loadProjects() {
             projectList.appendChild(projectDiv)
         }
 
-    });
+    }).then(() => {
+        console.log("loaded projects");
+    })
 }
 
 function loadLibraries() {
-    fetch("/libraries.json").then(r => r.json()).then(data => {
+    return fetch("/libraries.json").then(r => r.json()).then(data => {
         let libraryList = document.getElementById("library-links")
         libraryList.innerHTML = ""
 
@@ -116,17 +123,21 @@ function loadLibraries() {
 
             libraryDiv.appendChild(span)
             libraryDiv.appendChild(descSpan)
+            libraryDiv.id = library["name"].toLowerCase()
             libraryList.appendChild(libraryDiv)
             libraryList.appendChild(image)
 
         }
-    });
+    }).then(() => {
+        console.log("loaded libraries");
+    })
 }
 
 
 function onLoadProjects() {
-    loadProjects();
-    setDisplayGame();
-    loadLibraries();
+    Promise.all([loadProjects(), loadLibraries()]).then(() => {
+        console.log("Displaying Game")
+        setDisplayGame()
+    });
 }
 

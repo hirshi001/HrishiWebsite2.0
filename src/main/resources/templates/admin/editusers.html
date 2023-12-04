@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description"
+          content="A personal website for Hrishikesh Ingle. Contains all his games for you to play and information for you to learn about him.">
+
+    <link rel="icon" type="image/png" href="/website/images/favicomatic/favicon-32x32.png" sizes="32x32"/>
+    <link rel="icon" type="image/png" href="/website/images/favicomatic/favicon-16x16.png" sizes="16x16"/>
+
+    <title>Hrishi's Website</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap" rel="stylesheet">
+    <link href="/website/index.css" rel="stylesheet">
+    <link href="/admin/index.css" rel="stylesheet">
+    <link href="/website/sidebar/sidebarstyles.css" rel="stylesheet">
+    <link href="/website/navbar/navbar.css" rel="stylesheet">
+    <link href="/website/styles/fonts.css" rel="stylesheet">
+    <link href="/website/styles/fader.css" rel="stylesheet">
+
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/>
+
+    <!-- <script src="/website/navbar/navbarscript.js" defer></script> -->
+    <script src="/website/sidebar/sidebarscript.js" defer onload="onLoad('/admin')"></script>
+    <script src="/website/styles/fonts.js" defer></script>
+
+    <script src="/admin/editusers/editusers.js" defer onload="onUserLoad()"></script>
+
+
+</head>
+<body>
+<div id="sidebar-div"></div>
+<div id="content">
+    <h2>User Table</h2>
+    <table id="user-table" border="1">
+        <thead>
+        <tr>
+            <th><button disabled="disabled">Reset All</button></th>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th th:each="role : ${roles}">
+                <span th:text="${role}"></span>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Use Thymeleaf to iterate over a list of users and populate the table -->
+        <tr th:each="user : ${users}">
+            <td><button disabled="disabled" class="reset-button">reset</button></td>
+            <!-- Editable values -->
+            <td th:text="${user.id}"></td>
+            <td><input th:value="${user.username}"></td>
+            <td><input th:value="${user.email}" type="email"></td>
+            <td th:each="role : ${roles}">
+                <input type="checkbox" th:checked="${user.roles.contains(role)}">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <table id="copy-table" border="1" hidden="hidden">
+        <thead>
+        <tr>
+            <th><button disabled="disabled">Reset All</button></th>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th th:each="role : ${roles}">
+                <span th:text="${role}"></span>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Use Thymeleaf to iterate over a list of users and populate the table -->
+        <tr th:each="user : ${users}">
+            <td><button disabled="disabled">reset</button></td>
+            <!-- Editable values -->
+            <td th:text="${user.id}"></td>
+            <td><input th:value="${user.username}"></td>
+            <td><input th:value="${user.email}" type="email"></td>
+            <td th:each="role : ${roles}">
+                <input type="checkbox" th:checked="${user.roles.contains(role)}">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <button type="button" onclick="save()">Save</button>
+</div>
+</body>
+</html>

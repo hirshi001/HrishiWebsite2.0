@@ -34,7 +34,7 @@
     padding-left: 85px;
     padding-right: 10px;
     justify-content: center;
-    padding-top: 20pt;
+    /* padding-top: 20pt;*/
     min-height: 100vh;
 
     transition: all 0.5s ease-in-out;

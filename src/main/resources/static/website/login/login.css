@@ -1,14 +1,16 @@
 #login-div-container {
     display: flex;
     align-items: center;
+    position: relative;
     height: 100vh;
     width: 100%;
 }
 
 #login-div {
-    position: sticky;
-    transform: translateY(-100%);
+    position: absolute;
     top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
     width: 100%;
 
     display: flex;

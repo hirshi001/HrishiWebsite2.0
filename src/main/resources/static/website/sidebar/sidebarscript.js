@@ -79,8 +79,8 @@ const hideSearchResults = () => {
 }
 
 
-const onLoad = () => {
-    fetch("/sidebar").then(response => response.text())
+const onLoad = (source = 'website') => {
+    fetch(source+"/sidebar").then(response => response.text())
         .then(data => {
             document.getElementById("sidebar-div").innerHTML = data
 
@@ -164,14 +164,10 @@ const onLoad = () => {
             let content = document.getElementById("content")
             if (cookieToggle === "True") {
                 lockSidebar()
-            } else if (cookieToggle === "False") {
-                unlockSidebar()
-            }
-
-            if (cookieToggle === "False") {
-                hideSidebar()
-            } else {
                 showSidebar()
+            } else {
+                unlockSidebar()
+                hideSidebar();
             }
 
 
