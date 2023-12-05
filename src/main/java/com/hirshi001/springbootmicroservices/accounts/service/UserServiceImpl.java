@@ -68,6 +68,7 @@ public class UserServiceImpl implements UserService {
             if (user == null) {
                 throw new UsernameNotFoundException("User not found");
             }
+            System.out.println(user);
 
             String username = (String) map.get("Username");
             String email = (String) map.get("Email");
@@ -79,15 +80,15 @@ public class UserServiceImpl implements UserService {
             for (Role role : roles) {
                 if ((Boolean) map.get(role.getName())) {
                     user.getRoles().add(role);
-                    role.getUsers().add(user);
+                   // role.getUsers().add(user);
                 } else {
                     user.getRoles().remove(role);
-                    role.getUsers().remove(user);
+                   // role.getUsers().remove(user);
                 }
             }
 
             userRepository.save(user);
-            roleRepository.saveAll(roles);
+            // roleRepository.saveAll(roles);
             return true;
         }
         return false;

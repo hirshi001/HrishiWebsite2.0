@@ -35,22 +35,22 @@ public class AuthController {
     }
 
     @PostMapping("/accounts/register")
-    public ResponseEntity<String> registration(@Valid @ModelAttribute("userRegistrationDto") UserRegistrationDto userRegistrationDto) {
+    public String registration(@Valid @ModelAttribute("userRegistrationDto") UserRegistrationDto userRegistrationDto) {
 
         Optional<User> existingUser = userService.findUserByEmail(userRegistrationDto.getEmail());
 
         if (existingUser.isPresent()) {
-            return ResponseEntity.badRequest().body("This email already exists");
+            return "redirect:/signup?error";
         }
         LOGGER.info("User registration: {}", userRegistrationDto);
         userService.saveUser(userRegistrationDto);
-        return ResponseEntity.ok("User registered successfully");
+        return "redirect:/login";
     }
 
     @GetMapping("/register")
     public String register(Model model) {
         model.addAttribute("userRegistrationDto", new UserRegistrationDto());
-        return "accounts/register";
+        return "redirect:/signup";
     }
 
 }
