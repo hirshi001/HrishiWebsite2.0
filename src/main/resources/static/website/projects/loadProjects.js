@@ -41,11 +41,11 @@ function setDisplayGame() {
     } else {
         search = "searchTerm=" + parent.location.hash.substring(1).replace("-", " ")
     }
-    fetch("/projects.json?" + search).then(r => r.json()).then(data => {
+    fetch("/projects/projects.json?" + search).then(r => r.json()).then(data => {
         data = data[0]
         displayGame(data["gameEmbed"], data["name"], data["image"], data["repositoryLink"], data["description"], updateHash)
     }).catch((e) => {
-        fetch("/projects.json?id=1").then(r => r.json()).then(data => {
+        fetch("/projects/projects.json?id=1").then(r => r.json()).then(data => {
             data = data[0]
             displayGame(data["gameEmbed"], data["name"], data["image"], data["repositoryLink"], data["description"], updateHash)
         })
@@ -53,7 +53,10 @@ function setDisplayGame() {
 }
 
 function loadProjects() {
-    return fetch("/projects.json").then(r => r.json()).then(data => {
+    fetch("/projects/projects.json").then(r => r.text()).then(data => {
+        console.log(data)
+    });
+    return fetch("/projects/projects.json").then(r => r.json()).then(data => {
         let projectList = document.getElementById("project-links")
         projectList.innerHTML = ""
 
