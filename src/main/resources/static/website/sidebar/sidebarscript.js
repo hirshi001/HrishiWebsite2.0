@@ -212,7 +212,7 @@ const reposition_search_results = () => {
 }
 
 const search_projects = (target) => {
-    fetch("/projects_display.json?search=" + target.toLowerCase()).then(response => response.json()).then(data => {
+    fetch("/projects/projects_display.json?search=" + target.toLowerCase()).then(response => response.json()).then(data => {
 
         let div = document.getElementById("search_results")
         div.innerHTML = ""

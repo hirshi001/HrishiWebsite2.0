@@ -21,6 +21,7 @@ public class DriverUtil {
         } catch (Exception e) {
             INSTANCE.driver = null;
             LOG.error("Error initializing Chrome Driver", e);
+            LOG.error("Path may have changed. If on Mac, try running \"brew info chromedriver\" to find the path");
         }
     }
     public static void destroy() {
