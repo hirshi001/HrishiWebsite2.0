@@ -60,6 +60,10 @@ public class LibraryController {
 
     public void updateLibraryScreenshot(Library library) {
         final WebDriver driver = DriverUtil.getDriver();
+        if(driver == null) {
+            LOG.warn("Driver is null");
+            return;
+        }
         synchronized (driver) {
             try {
                 driver.get(library.getUrl());

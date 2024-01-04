@@ -16,12 +16,19 @@ public class DriverUtil {
 
 
     public static void init() {
-        INSTANCE.initChromeDriver();
+        try {
+            INSTANCE.initChromeDriver();
+        } catch (Exception e) {
+            INSTANCE.driver = null;
+            LOG.error("Error initializing Chrome Driver", e);
+        }
     }
     public static void destroy() {
         WebDriver driver = getDriver();
-        synchronized (driver) {
-            driver.quit();
+        if(driver != null) {
+            synchronized (driver) {
+                driver.quit();
+            }
         }
     }
 
@@ -43,7 +50,7 @@ public class DriverUtil {
 
     }
 
-    private void initChromeDriver() {
+    private void initChromeDriver() throws Exception{
         LOG.info("Initializing Chrome Driver");
         if(chrome_driver_use_path) {
             System.setProperty("webdriver.chrome.driver", chrome_driver_path);

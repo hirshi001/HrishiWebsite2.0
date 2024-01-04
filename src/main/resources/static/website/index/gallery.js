@@ -7,8 +7,8 @@ for(let i = 0; i < gallerySlides.children.length; i++){
 }
 style.innerHTML = innerHTML;
 
-document.getElementsByTagName('head')[0].appendChild(style);
 
+document.getElementsByTagName('head')[0].appendChild(style);
 function galleryChange(dIndex) {
     let gallerySlides = document.getElementsByClassName("gallery-slides")[0]
 

@@ -1,97 +1,101 @@
-<nav class='sidebar'>
-    <div class='logo_items flex'>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="site-sidebar" th:id="sidebar-div">
+    <nav class='sidebar'>
+        <div class='logo_items flex'>
             <span class='nav_image'>
                       <img src='/website/images/MinecraftSkinFace.png' alt='logo_img'/>
                     </span>
-        <span class='logo_name' th:text="${name}"></span>
-        <i class='bx bx-lock-alt' id='lock-icon' title='Unlock Sidebar'></i>
-    </div>
-    <div class='menu_container'>
-        <div class='menu_items'>
-            <ul class='menu_item'>
-                <div class='menu_title flex'>
-                    <span class='title'>Home</span>
-                    <span class='line'></span>
-                </div>
-                <li class='sb_item'>
-                    <a th:href='@{/index}' class='sb_link flex'>
-                        <i class='bx bx-home-alt'></i>
-                        <span>Home Page</span>
-                    </a>
-                </li>
-                <li class='item'>
-                    <a href='#' class='sb_link flex'>
-                        <i class='bx bxs-contact'></i>
-                        <span>Contact Me</span>
-                    </a>
-                </li>
-            </ul>
-            <ul class='menu_item'>
-                <div class='menu_title flex'>
-                    <span class='title'>Projects</span>
-                    <span class='line'></span>
-                </div>
-                <li class='sb_item flex'>
-                    <a class='sb_link flex'>
-                        <i class='bx bx-search-alt'></i>
-                        <div>
-                            <input id='search_project' type='text' placeholder='Search Project'/>
-                        </div>
-                    </a>
-                    <div id='search_results-wrapper'>
-                        <div id='search_results'>
-                        </div>
-                    </div>
-                </li>
-                <li class='sb_item'>
-                    <a th:href='@{/projects}' class='sb_link flex'>
-                        <i class='bx bx-grid-alt'></i>
-                        <span>All Projects</span>
-                    </a>
-                </li>
-            </ul>
-            <ul class='menu_item'>
-                <div class='menu_title flex'>
-                    <span class='title'>Setting</span>
-                    <span class='line'></span>
-                </div>
-                <li class='sb_item'>
-                    <a href='#' class='sb_link flex'>
-                        <i class='bx bx-flag'></i>
-                        <span>Notice Board</span>
-                    </a>
-                </li>
-                <li class='sb_item'>
-                    <a href='#' class='sb_link flex'>
-                        <i class='bx bx-award'></i>
-                        <span>Award</span>
-                    </a>
-                </li>
-                <li class='item'>
-                    <a href='#' class='sb_link flex'>
-                        <i class='bx bx-cog'></i>
-                        <span>Setting</span>
-                    </a>
-                </li>
-                </li>
-                <li class='sb_item'>
-                    <a th:href='@{/login}' class='sb_link flex'>
-                        <i class='bx bx-log-in-circle'></i>
-                        <span>Log In</span>
-                    </a>
-                </li>
-            </ul>
+            <span class='logo_name' th:text="${name}"></span>
+            <i class='bx bx-lock-alt' id='lock-icon' title='Unlock Sidebar'></i>
         </div>
-        <div class='sidebar_profile'>
+        <div class='menu_container'>
+            <div class='menu_items'>
+                <ul class='menu_item'>
+                    <div class='menu_title flex'>
+                        <span class='title'>Home</span>
+                        <span class='line'></span>
+                    </div>
+                    <li class='sb_item'>
+                        <a th:href='@{/index}' class='sb_link flex'>
+                            <i class='bx bx-home-alt'></i>
+                            <span>Home Page</span>
+                        </a>
+                    </li>
+                    <li class='item'>
+                        <a href='#' class='sb_link flex'>
+                            <i class='bx bxs-contact'></i>
+                            <span>Contact Me</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class='menu_item'>
+                    <div class='menu_title flex'>
+                        <span class='title'>Projects</span>
+                        <span class='line'></span>
+                    </div>
+                    <li class='sb_item flex'>
+                        <a class='sb_link flex'>
+                            <i class='bx bx-search-alt'></i>
+                            <div>
+                                <input id='search_project' type='text' placeholder='Search Project'/>
+                            </div>
+                        </a>
+                        <div id='search_results-wrapper'>
+                            <div id='search_results'>
+                            </div>
+                        </div>
+                    </li>
+                    <li class='sb_item'>
+                        <a th:href='@{/projects}' class='sb_link flex'>
+                            <i class='bx bx-grid-alt'></i>
+                            <span>All Projects</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class='menu_item'>
+                    <div class='menu_title flex'>
+                        <span class='title'>Setting</span>
+                        <span class='line'></span>
+                    </div>
+                    <li class='sb_item'>
+                        <a href='#' class='sb_link flex'>
+                            <i class='bx bx-flag'></i>
+                            <span>Notice Board</span>
+                        </a>
+                    </li>
+                    <li class='sb_item'>
+                        <a href='#' class='sb_link flex'>
+                            <i class='bx bx-award'></i>
+                            <span>Award</span>
+                        </a>
+                    </li>
+                    <li class='item'>
+                        <a href='#' class='sb_link flex'>
+                            <i class='bx bx-cog'></i>
+                            <span>Setting</span>
+                        </a>
+                    </li>
+                    </li>
+                    <li class='sb_item'>
+                        <a th:href='@{/login}' class='sb_link flex'>
+                            <i class='bx bx-log-in-circle'></i>
+                            <span>Log In</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class='sidebar_profile'>
                 <span class='nav_image'>
                         <img src='/website/images/profile.jpg' alt='logo_img'/>
                       </span>
-            <div class='data_text'>
-                <span class='name'>Hrishikesh Ingle</span>
-                <a href='mailto: hrishikeshningle@gmail.com' class='email'>
-                    <span>hrishikeshningle@gmail.com</span>
-                </a>
+                <div class='data_text'>
+                    <span class='name'>Hrishikesh Ingle</span>
+                    <a href='mailto: hrishikeshningle@gmail.com' class='email'>
+                        <span>hrishikeshningle@gmail.com</span>
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-</nav>
+    </nav>
+</div>
