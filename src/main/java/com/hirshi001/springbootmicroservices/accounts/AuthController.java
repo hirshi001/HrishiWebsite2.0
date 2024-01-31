@@ -9,6 +9,7 @@ import com.hirshi001.springbootmicroservices.accounts.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -23,10 +24,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+@Slf4j
 public class AuthController {
 
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
 
     private UserService userService;
 
@@ -42,7 +43,7 @@ public class AuthController {
         if (existingUser.isPresent()) {
             return "redirect:/signup?error";
         }
-        LOGGER.info("User registration: {}", userRegistrationDto);
+        log.info("User registration: {}", userRegistrationDto);
         userService.saveUser(userRegistrationDto);
         return "redirect:/login";
     }

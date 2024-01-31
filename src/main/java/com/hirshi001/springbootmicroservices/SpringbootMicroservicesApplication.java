@@ -1,6 +1,7 @@
 package com.hirshi001.springbootmicroservices;
 
 import com.hirshi001.springbootmicroservices.chromedriver.DriverUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -10,9 +11,9 @@ import org.springframework.context.event.EventListener;
 
 
 @SpringBootApplication
+@Slf4j
 public class SpringbootMicroservicesApplication {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SpringbootMicroservicesApplication.class);
 
 
     public static void main(String[] args) {
@@ -22,9 +23,9 @@ public class SpringbootMicroservicesApplication {
 
     @EventListener(ContextClosedEvent.class)
     public void onContextClosedEvent(ContextClosedEvent contextClosedEvent) {
-        LOG.info("Context closed event received");
+        log.info("Context closed event received");
         DriverUtil.destroy();
-        LOG.info("Chrome driver destroyed");
+        log.info("Chrome driver destroyed");
     }
 
 

@@ -69,7 +69,6 @@ public class UserServiceImpl implements UserService {
             if (user == null) {
                 throw new UsernameNotFoundException("User not found");
             }
-            System.out.println(user);
 
             String username = (String) map.get("Username");
             String email = (String) map.get("Email");

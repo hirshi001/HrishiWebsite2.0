@@ -1,5 +1,6 @@
 package com.hirshi001.springbootmicroservices.chromedriver;
 
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -9,9 +10,9 @@ import org.springframework.beans.factory.annotation.Value;
 
 import java.time.Duration;
 
+@Slf4j
 public class DriverUtil {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DriverUtil.class);
     private static final DriverUtil INSTANCE = new DriverUtil();
 
 
@@ -20,13 +21,14 @@ public class DriverUtil {
             INSTANCE.initChromeDriver();
         } catch (Exception e) {
             INSTANCE.driver = null;
-            LOG.error("Error initializing Chrome Driver", e);
-            LOG.error("Path may have changed. If on Mac, try running \"brew info chromedriver\" to find the path");
+            log.error("Error initializing Chrome Driver", e);
+            log.error("Path may have changed. If on Mac, try running \"brew info chromedriver\" to find the path");
         }
     }
+
     public static void destroy() {
         WebDriver driver = getDriver();
-        if(driver != null) {
+        if (driver != null) {
             synchronized (driver) {
                 driver.quit();
             }
@@ -36,8 +38,6 @@ public class DriverUtil {
     public static WebDriver getDriver() {
         return INSTANCE.driver;
     }
-
-
 
 
     private WebDriver driver;
@@ -51,12 +51,12 @@ public class DriverUtil {
 
     }
 
-    private void initChromeDriver() throws Exception{
-        LOG.info("Initializing Chrome Driver");
-        if(chrome_driver_use_path) {
+    private void initChromeDriver() throws Exception {
+        log.info("Initializing Chrome Driver");
+        if (chrome_driver_use_path) {
             System.setProperty("webdriver.chrome.driver", chrome_driver_path);
         }
-        LOG.info("Chrome driver path: " + System.getProperty("webdriver.chrome.driver"));
+        log.info("Chrome driver path: " + System.getProperty("webdriver.chrome.driver"));
 
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--no-sandbox");
@@ -70,12 +70,12 @@ public class DriverUtil {
         options.setPageLoadTimeout(Duration.ofSeconds(10));
 
         String os = System.getProperty("os.name");
-        if(os!=null && os.toLowerCase().contains("linux")) {
-            LOG.info("Disabling dev shm usage for Chrome Driver");
+        if (os != null && os.toLowerCase().contains("linux")) {
+            log.info("Disabling dev shm usage for Chrome Driver");
             options.addArguments("--disable-dev-shm-usage");
         }
 
         driver = new ChromeDriver(options);
-        LOG.info("Chrome Driver created.");
+        log.info("Chrome Driver created.");
     }
 }

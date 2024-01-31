@@ -35,6 +35,7 @@ public class WebsiteController {
         return "website/projects";
     }
 
+
     @GetMapping("/login")
     public String login() {
         return "website/login";
