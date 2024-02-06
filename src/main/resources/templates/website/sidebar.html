@@ -5,7 +5,7 @@
     <nav class='sidebar'>
         <div class='logo_items flex'>
             <span class='nav_image'>
-                      <img src='/website/images/MinecraftSkinFace.png' alt='logo_img'/>
+                      <img src='/website/images/GuestImage.png' alt='logo_img'/>
                     </span>
             <span class='logo_name' th:text="${name}"></span>
             <i class='bx bx-lock-alt' id='lock-icon' title='Unlock Sidebar'></i>
@@ -21,12 +21,6 @@
                         <a th:href='@{/index}' class='sb_link flex'>
                             <i class='bx bx-home-alt'></i>
                             <span>Home Page</span>
-                        </a>
-                    </li>
-                    <li class='item'>
-                        <a href='#' class='sb_link flex'>
-                            <i class='bx bxs-contact'></i>
-                            <span>Contact Me</span>
                         </a>
                     </li>
                 </ul>
@@ -59,24 +53,6 @@
                         <span class='title'>Setting</span>
                         <span class='line'></span>
                     </div>
-                    <li class='sb_item'>
-                        <a href='#' class='sb_link flex'>
-                            <i class='bx bx-flag'></i>
-                            <span>Notice Board</span>
-                        </a>
-                    </li>
-                    <li class='sb_item'>
-                        <a href='#' class='sb_link flex'>
-                            <i class='bx bx-award'></i>
-                            <span>Award</span>
-                        </a>
-                    </li>
-                    <li class='item'>
-                        <a href='#' class='sb_link flex'>
-                            <i class='bx bx-cog'></i>
-                            <span>Setting</span>
-                        </a>
-                    </li>
                     </li>
                     <li class='sb_item'>
                         <a th:href='@{/login}' class='sb_link flex'>

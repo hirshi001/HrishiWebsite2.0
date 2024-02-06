@@ -43,6 +43,9 @@
     color: #aaa;
 }
 
+body {
+    background-color: #112;
+}
 
 /* Sidebar */
 .sidebar {

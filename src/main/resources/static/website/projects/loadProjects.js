@@ -36,6 +36,7 @@ function setDisplayGame() {
     let hash = parent.location.hash.substring(1).toLowerCase()
     let updateHash = !document.getElementById(hash)
 
+
     if (parent.location.hash === "") {
         search = "id=1"
     } else {
@@ -50,6 +51,7 @@ function setDisplayGame() {
             displayGame(data["gameEmbed"], data["name"], data["image"], data["repositoryLink"], data["description"], updateHash)
         })
     })
+
 }
 
 function loadProjects() {
@@ -68,7 +70,7 @@ function loadProjects() {
             let d1 = document.createElement("div")
 
             let button = document.createElement("button")
-            button.onclick = () => displayGame(project["gameEmbed"], project["name"], project["image"], project["repositoryLink"], project["description"])
+            button.onclick = () => displayGame(project["gameEmbed"], project["name"], project["image"], project["repositoryLink"], project["description"], true)
 
             let img = document.createElement("img")
             img.src = project["image"]
