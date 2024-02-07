@@ -1,6 +1,6 @@
 [
   {
-    "id": 0,
+    "id": 1,
     "game_embed": "<iframe frameborder=\"0\" src=\"https://itch.io/embed-upload/7586480?color=333333\" allowfullscreen=\"\" width=\"640\" height=\"500\"><a href=\"https://hirshi001.itch.io/pixelwars\">Play PixelWars on itch.io</a></iframe>",
     "image": "https://img.itch.zone/aW1nLzEyNTA0MDcyLnBuZw==/180x143%23c/vo4U2U.png",
     "name": "Pixel Wars",
@@ -43,5 +43,14 @@
     "repository_link": "https://github.com/hirshi001/ObjectClassificationJS",
     "url": "https://hirshi001.itch.io/objectclassification",
     "description": "A little Object Classification Demo. Can detect 3 objects which you place into the camera and save data by clicking Object # button. After, train model, and then detect images in the camera"
+  },
+  {
+    "id": 6,
+    "game_embed": "<iframe frameborder=\"0\" src=\"https://itch.io/embed-upload/9679396?color=333333\" allowfullscreen=\"\" width=\"650\" height=\"620\"><a href=\"https://hirshi001.itch.io/sorting-visualization\">Play Sorting Visualization on itch.io</a></iframe>",
+    "image": "https://img.itch.zone/aW1nLzE0OTY4NjM0LnBuZw==/315x250%23c/SznZ2B.png",
+    "name": "Sorting Visualization",
+    "repository_link": "https://github.com/hirshi001/SortingVisualizationJS",
+    "url": "https://hirshi001.itch.io/sorting-visualization",
+    "description": "A sorting visualization tool. You can select the sorting algorithm and the speed of the visualization. It's a great tool to understand how sorting algorithms work."
   }
 ]

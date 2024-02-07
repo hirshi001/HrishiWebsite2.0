@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="site-sidebar" th:id="sidebar-div">
     <script src="/website/sidebar/sidebarscript.js" defer onload="onLoad()"></script>
-    <nav class='sidebar'>
+    <nav class='sidebar close'>
         <div class='logo_items flex'>
             <span class='nav_image'>
                       <img src='/website/images/GuestImage.png' alt='logo_img'/>
@@ -37,7 +37,7 @@
                             </div>
                         </a>
                         <div id='search_results-wrapper'>
-                            <div id='search_results'>
+                            <div id='search_results' class="hidden">
                             </div>
                         </div>
                     </li>

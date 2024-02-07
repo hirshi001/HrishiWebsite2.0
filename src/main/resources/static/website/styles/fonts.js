@@ -1,6 +1,7 @@
 
 function addClassForCharacters(className, delay){
     let elements = Array.from(document.getElementsByClassName(className))
+    console.log("test")
 
     for(let i = 0; i < elements.length; i++){
         let text = elements[i].textContent;
