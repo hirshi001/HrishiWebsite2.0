@@ -1,8 +1,13 @@
 let embed_link = "<iframe frameborder=\"0\" src=\"https://itch.io/embed-upload/7586480?color=333333\" allowfullscreen=\"\" width=\"640\" height=\"500\"><a href=\"https://hirshi001.itch.io/pixelwars\">Play PixelWars on itch.io</a></iframe>"
 let clickToStartDiv = null
+let hashChange = false
 
 addEventListener("hashchange", () => {
-    setDisplayGame();
+    // prevent displaying game if the hash change was caused by the user clicking on a project
+    if (!hashChange) {
+        setDisplayGame()
+    }
+    hashChange = false
 })
 
 function clickToStart() {
@@ -26,6 +31,7 @@ function displayGame(link, name, img, repoLink, description, updateHash = false)
     document.getElementById("project-description").innerText = description ? description : "Description not provided."
     embed_link = link
     if (updateHash) {
+        hashChange = true
         parent.location.hash = name.toLowerCase()
     }
 }
@@ -42,22 +48,25 @@ function setDisplayGame() {
     } else {
         search = "searchTerm=" + parent.location.hash.substring(1).replace("-", " ")
     }
+
     fetch("/projects/projects.json?" + search).then(r => r.json()).then(data => {
         data = data[0]
-        displayGame(data["gameEmbed"], data["name"], data["image"], data["repositoryLink"], data["description"], updateHash)
+        displayGame(data["game_embed"], data["name"], data["image"], data["repository_link"], data["description"], updateHash)
     }).catch((e) => {
         fetch("/projects/projects.json?id=1").then(r => r.json()).then(data => {
             data = data[0]
-            displayGame(data["gameEmbed"], data["name"], data["image"], data["repositoryLink"], data["description"], updateHash)
+            displayGame(data["game_embed"], data["name"], data["image"], data["repository_link"], data["description"], updateHash)
         })
     })
 
 }
 
 function loadProjects() {
+    /*
     fetch("/projects/projects.json").then(r => r.text()).then(data => {
         console.log(data)
     });
+     */
     return fetch("/projects/projects.json").then(r => r.json()).then(data => {
         let projectList = document.getElementById("project-links")
         projectList.innerHTML = ""
@@ -70,7 +79,7 @@ function loadProjects() {
             let d1 = document.createElement("div")
 
             let button = document.createElement("button")
-            button.onclick = () => displayGame(project["gameEmbed"], project["name"], project["image"], project["repositoryLink"], project["description"], true)
+            button.onclick = () => displayGame(project["game_embed"], project["name"], project["image"], project["repository_link"], project["description"], true)
 
             let img = document.createElement("img")
             img.src = project["image"]

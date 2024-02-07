@@ -1,4 +1,4 @@
-package com.hirshi001.springbootmicroservices.projects;
+package com.hirshi001.springbootmicroservices.localrepo.projects;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,24 +6,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "projects")
 public class Project {
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
+    private int id;
     private String name;
     private String url;
-    private String gameEmbed;
+    private String game_embed;
     private String image;
-    private String repositoryLink;
+    private String repository_link;
     private String description;
 
     @Override
@@ -32,9 +27,9 @@ public class Project {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", url='" + url + '\'' +
-                ", gameEmbed='" + gameEmbed + '\'' +
+                ", gameEmbed='" + game_embed + '\'' +
                 ", image='" + image + '\'' +
-                ", repositoryLink='" + repositoryLink + '\'' +
+                ", repositoryLink='" + repository_link + '\'' +
                 '}';
     }
 }

@@ -1,4 +1,4 @@
-package com.hirshi001.springbootmicroservices.projects;
+package com.hirshi001.springbootmicroservices.localrepo.projects;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ProjectDisplay {
 
-    private Long id;
+    private int id;
     private String name;
     private String image;
 

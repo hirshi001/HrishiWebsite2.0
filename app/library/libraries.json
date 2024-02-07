@@ -1,0 +1,20 @@
+[
+  {
+    "name": "BetterNetworking",
+    "url": "https://github.com/hirshi001/betternetworking",
+    "description": "A networking library interface/template for Java to be used on any platform.",
+    "id": 1
+  },
+  {
+    "name": "RestAPI",
+    "url": "https://github.com/hirshi001/RestAPI",
+    "description": "A Java library for reading and writing binary data.",
+    "id": 2
+  },
+  {
+    "name": "ByteBuffer",
+    "url": "https://github.com/hirshi001/ByteBuffer",
+    "description": "A Java library for reading and writing binary data.",
+    "id": 3
+  }
+]

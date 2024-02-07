@@ -1,4 +1,4 @@
-package com.hirshi001.springbootmicroservices.libraries;
+package com.hirshi001.springbootmicroservices.localrepo.libraries;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;

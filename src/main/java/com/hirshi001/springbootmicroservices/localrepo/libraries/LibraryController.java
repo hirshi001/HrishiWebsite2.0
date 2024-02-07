@@ -1,4 +1,4 @@
-package com.hirshi001.springbootmicroservices.libraries;
+package com.hirshi001.springbootmicroservices.localrepo.libraries;
 
 import com.hirshi001.springbootmicroservices.chromedriver.DriverUtil;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -6,15 +6,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileNotFoundException;
+import java.nio.file.Path;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -30,8 +29,15 @@ public class LibraryController {
 
     @Value("${github.webhooks.secret}")
     private String githubWebhookSecret;
-    @Autowired
-    private LibraryRepository libraryRepository;
+
+    @Value("${app.base-folder}")
+    private String baseFolder;
+
+    @Value("${app.library-folder}")
+    private String libraryFolder;
+
+
+    private final LibraryRepository libraryRepository = new LibraryRepositoryImpl();
 
     @PostMapping("/githubrepoupdate")
     public void githubRepoUpdated(@RequestBody JsonNode payloadBody, @RequestHeader("X-Hub-Signature-256") String signatureHeader) {
@@ -56,7 +62,42 @@ public class LibraryController {
         } catch (NoSuchAlgorithmException | InvalidKeyException e) {
             throw new RuntimeException(e);
         }
+    }
 
+    @GetMapping("/libraries.json")
+    public List<Library> libraries(@RequestParam(value = "search", required = false) String searchString) {
+        if (searchString == null)
+            return libraryRepository.getAll(null);
+        else
+            return libraryRepository.searchFor(searchString, null);
+    }
+
+
+
+    @GetMapping(
+            value = "/libScreenshot",
+            produces = MediaType.IMAGE_PNG_VALUE
+    )
+    public @ResponseBody byte[] getLibraryScreenshot(@RequestParam(value = "name") String name) {
+        return libraryScreenshots.get(name);
+    }
+
+
+
+    @EventListener(ApplicationReadyEvent.class)
+    public void onStartup() {
+        try {
+            loadLibraries();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        updateLibraryScreenshots();
+    }
+
+    public void loadLibraries() throws FileNotFoundException {
+        libraryRepository.setRepoPath(Path.of(baseFolder, libraryFolder, "libraries.json"));
+        libraryRepository.defaultReload(true);
+        libraryRepository.load();
     }
 
     public void updateLibraryScreenshot(Library library) {
@@ -81,39 +122,11 @@ public class LibraryController {
     public void updateLibraryScreenshots() {
         log.info("Updating library screenshots");
 
-        for (Library library : libraryRepository.findAll()) {
+        for (Library library : libraryRepository) {
             updateLibraryScreenshot(library);
         }
     }
 
-
-    @GetMapping("/libraries.json")
-    public List<Library> libraries(@RequestParam(value = "search", required = false) String searchString) {
-        if (searchString == null)
-            return libraryRepository.findAll();
-        else
-            return libraryRepository.findProjectsByNameContainingIgnoreCase(searchString);
-    }
-
-
-    @EventListener(ApplicationReadyEvent.class)
-    public void onStartup() {
-        updateLibraryScreenshots();
-    }
-
-
-    @GetMapping(
-            value = "/libScreenshot",
-            produces = MediaType.IMAGE_PNG_VALUE
-    )
-    public @ResponseBody byte[] getLibraryScreenshot(@RequestParam(value = "name") String name) {
-        return libraryScreenshots.get(name);
-    }
-
-
-    public byte[] get(String libraryName) {
-        return libraryScreenshots.get(libraryName);
-    }
 
 
 }
