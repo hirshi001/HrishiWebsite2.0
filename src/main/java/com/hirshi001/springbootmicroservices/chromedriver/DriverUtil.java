@@ -52,12 +52,20 @@ public class DriverUtil {
     @Value("${chrome-driver.use-path:#{false}}")
     private boolean chrome_driver_use_path;
 
+    @Value("${chrome-driver.use-driver:#{true}}")
+    private boolean chrome_driver_use_driver;
+
 
     private DriverUtil() {
 
     }
 
     private void initChromeDriver() throws Exception {
+        if(!chrome_driver_use_driver){
+            log.info("Chrome driver disabled");
+            return;
+        }
+
         log.info("Initializing Chrome Driver");
         if (chrome_driver_use_path) {
             System.setProperty("webdriver.chrome.driver", chrome_driver_path);
