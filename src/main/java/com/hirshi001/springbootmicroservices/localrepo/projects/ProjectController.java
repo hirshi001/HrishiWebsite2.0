@@ -25,30 +25,26 @@ public class ProjectController {
 
     @GetMapping("/projects.json")
     public List<Project> index(@RequestParam(value = "searchTerm", required = false) String searchTerm, @RequestParam(value = "id", required = false) Integer id) {
+        Project project = null;
         if (searchTerm != null) {
-            return List.of(projectRepository.getByName(searchTerm));
+            project = projectRepository.getByName(searchTerm);
         } else if (id != null) {
-            return List.of(projectRepository.getById(id));
+            project = projectRepository.getById(id);
         }
-        return projectRepository.getAll(null);
+
+        if(project != null)
+            return List.of(project);
+        else
+            return projectRepository.getAll(null);
     }
 
     @GetMapping("/projects_display.json")
     public List<ProjectDisplay> projectsDisplay(@RequestParam(value = "search", required = false) String searchString) {
         if (searchString == null)
-            return projectRepository.getAll(null).stream().map(this::mapToProjectDisplay).toList();
+            return projectRepository.getAll(null).stream().map(ProjectDisplay::new).toList();
         else
-            return projectRepository.searchFor(searchString, null).stream().map(this::mapToProjectDisplay).toList();
+            return projectRepository.searchFor(searchString, null).stream().map(ProjectDisplay::new).toList();
     }
-
-    private ProjectDisplay mapToProjectDisplay(Project project) {
-        ProjectDisplay projectDisplay = new ProjectDisplay();
-        projectDisplay.setName(project.getName());
-        projectDisplay.setId(project.getId());
-        projectDisplay.setImage(project.getImage());
-        return projectDisplay;
-    }
-
 
     @EventListener(ApplicationReadyEvent.class)
     public void onStartup() {

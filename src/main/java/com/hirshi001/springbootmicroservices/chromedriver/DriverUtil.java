@@ -16,31 +16,37 @@ public class DriverUtil {
     private static final DriverUtil INSTANCE = new DriverUtil();
 
 
-    public static void init() {
+    public static boolean init() throws Exception {
         try {
             INSTANCE.initChromeDriver();
+            return true;
         } catch (Exception e) {
             INSTANCE.driver = null;
-            log.error("Error initializing Chrome Driver", e);
-            log.error("Path may have changed. If on Mac, try running \"brew info chromedriver\" to find the path");
+            log.warn("Error initializing Chrome Driver", e);
+            log.warn("Path may have changed. If on Mac, try running \"brew info chromedriver\" to find the path");
+            throw e;
         }
     }
 
     public static void destroy() {
-        WebDriver driver = getDriver();
-        if (driver != null) {
-            synchronized (driver) {
-                driver.quit();
-            }
-        }
+        ChromeDriver driver = INSTANCE.driver;
+
+        if (driver != null)
+            driver.quit();
     }
 
-    public static WebDriver getDriver() {
+    public static boolean driverExists() {
+        return INSTANCE.driver != null;
+    }
+
+    public static WebDriver getDriver() throws DriverNotFoundException {
+        if (INSTANCE.driver == null)
+            throw new DriverNotFoundException();
         return INSTANCE.driver;
     }
 
 
-    private WebDriver driver;
+    private ChromeDriver driver;
     @Value("${chrome-driver.path}")
     private String chrome_driver_path;
     @Value("${chrome-driver.use-path:#{false}}")
@@ -59,11 +65,13 @@ public class DriverUtil {
         log.info("Chrome driver path: " + System.getProperty("webdriver.chrome.driver"));
 
         ChromeOptions options = new ChromeOptions();
+
         options.addArguments("--no-sandbox");
         options.addArguments("--headless=new");
         options.addArguments("--window-size=1920,1080");
         options.addArguments("--disable-gpu");
         options.addArguments("--disable-software-rasterizer");
+        options.addArguments("--force-dark-mode");
 
         options.setImplicitWaitTimeout(Duration.ofSeconds(10));
         options.setScriptTimeout(Duration.ofSeconds(10));

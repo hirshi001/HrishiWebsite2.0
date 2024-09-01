@@ -32,6 +32,7 @@ public abstract class AbstractLocalRepo<T> implements LocalRepo<T> {
 
     @Override
     public List<T> getAll(List<T> result) {
+        checkReload();
         if(result == null){
             result = new ArrayList<>();
         }

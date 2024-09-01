@@ -1,20 +1,16 @@
 package com.hirshi001.springbootmicroservices.localrepo.projects;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.hirshi001.springbootmicroservices.localrepo.AbstractLocalRepo;
-import com.hirshi001.springbootmicroservices.localrepo.libraries.Library;
-import com.nimbusds.jose.shaded.gson.Gson;
-import com.nimbusds.jose.shaded.gson.JsonArray;
-import com.nimbusds.jose.shaded.gson.JsonElement;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.attribute.FileTime;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Consumer;
 
 @Slf4j
 public class ProjectRepositoryImpl extends AbstractLocalRepo<Project> implements ProjectRepository {

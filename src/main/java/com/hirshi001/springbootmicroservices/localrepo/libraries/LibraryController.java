@@ -1,11 +1,11 @@
 package com.hirshi001.springbootmicroservices.localrepo.libraries;
 
+import com.hirshi001.springbootmicroservices.chromedriver.DriverNotFoundException;
 import com.hirshi001.springbootmicroservices.chromedriver.DriverUtil;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.hirshi001.springbootmicroservices.chromedriver.ScreenShotter;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -13,6 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -40,12 +42,22 @@ public class LibraryController {
     private final LibraryRepository libraryRepository = new LibraryRepositoryImpl();
 
     @PostMapping("/githubrepoupdate")
-    public void githubRepoUpdated(@RequestBody JsonNode payloadBody, @RequestHeader("X-Hub-Signature-256") String signatureHeader) {
+    public void githubRepoUpdated(
+            @RequestBody JsonNode payloadBody,
+            @RequestHeader("X-Hub-Signature-256") String signatureHeader,
+            HttpServletRequest request) throws Throwable {
+
+        if (!DriverUtil.driverExists())
+            return;
+
+
         try {
             // TODO: potentially blacklist IPs that send multiple invalid signatures
             log.info("Received github repo update webhook");
-            if (!GithubSignatureAuthenticator.verifySignature(payloadBody.toString(), githubWebhookSecret, signatureHeader))
+            if (!GithubSignatureAuthenticator.verifySignature(payloadBody.toString(), githubWebhookSecret, signatureHeader)) {
+                log.warn("Failed to authenticate SignatureHeader for Github Repo Update from {}:{}", request.getRemoteHost(), request.getRemotePort());
                 return;
+            }
 
             JsonNode value = payloadBody.get("repository");
             if (value == null) return;
@@ -57,7 +69,6 @@ public class LibraryController {
             if (library == null) return;
 
             updateLibraryScreenshot(library);
-
 
         } catch (NoSuchAlgorithmException | InvalidKeyException e) {
             throw new RuntimeException(e);
@@ -73,25 +84,33 @@ public class LibraryController {
     }
 
 
-
     @GetMapping(
             value = "/libScreenshot",
             produces = MediaType.IMAGE_PNG_VALUE
     )
     public @ResponseBody byte[] getLibraryScreenshot(@RequestParam(value = "name") String name) {
-        return libraryScreenshots.get(name);
+        byte[] screenShot = libraryScreenshots.get(name);
+        if (screenShot != null)
+            return screenShot;
+
+        Library library = libraryRepository.getByName(name);
+        if(library == null)
+            return null;
+
+        return getDefaultImage(library);
     }
 
 
-
     @EventListener(ApplicationReadyEvent.class)
-    public void onStartup() {
-        try {
-            loadLibraries();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+    public void onStartup() throws Exception {
+        loadLibraries();
+        if (DriverUtil.init()) {
+            try {
+                updateLibraryScreenshots();
+            } catch (Exception e) {
+                log.error("Failed to update library screenshots", e);
+            }
         }
-        updateLibraryScreenshots();
     }
 
     public void loadLibraries() throws FileNotFoundException {
@@ -100,23 +119,27 @@ public class LibraryController {
         libraryRepository.load();
     }
 
-    public void updateLibraryScreenshot(Library library) {
-        final WebDriver driver = DriverUtil.getDriver();
-        if(driver == null) {
-            log.warn("Driver is null");
-            return;
+    private byte[] getDefaultImage(Library library) {
+        Path imgPath = Path.of(baseFolder, libraryFolder, library.getDefaultImage());
+        try {
+            return Files.readAllBytes(imgPath);
+        } catch (IOException ignored) {
         }
-        synchronized (driver) {
-            try {
-                driver.get(library.getUrl());
-                Thread.sleep(1000);
-                byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-                libraryScreenshots.put(library.getName(), screenshot);
-                log.info("Updated screenshot for library: " + library.getName());
-            } catch (Exception e) {
-                log.error("Error getting screenshot for library: " + library.getName(), e);
-            }
+
+        return null;
+    }
+
+    synchronized void updateLibraryScreenshot(Library library) {
+        byte[] screenshot = null;
+
+        try {
+            screenshot = ScreenShotter.getScreenshot(library.getUrl(), 5);
+        } catch (Exception e) {
+            screenshot = getDefaultImage(library);
         }
+
+        if (screenshot != null)
+            libraryScreenshots.put(library.getName(), screenshot);
     }
 
     public void updateLibraryScreenshots() {
@@ -126,7 +149,5 @@ public class LibraryController {
             updateLibraryScreenshot(library);
         }
     }
-
-
 
 }

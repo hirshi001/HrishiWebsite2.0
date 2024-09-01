@@ -1,21 +1,20 @@
 package com.hirshi001.springbootmicroservices.website;
 
-import com.hirshi001.springbootmicroservices.accounts.entity.Role;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class WebsiteController {
 
     @GetMapping({"/index", "/"})
     public String index(Authentication authentication) {
-        if (authentication != null && authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals(Role.ADMIN))) {
+        /*if (authentication != null && authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals(Role.ADMIN))) {
             return "admin/index";
         }
+         */
         return "website/index";
     }
 

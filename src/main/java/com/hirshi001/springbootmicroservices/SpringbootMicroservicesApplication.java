@@ -14,12 +14,11 @@ import org.springframework.context.event.EventListener;
 @Slf4j
 public class SpringbootMicroservicesApplication {
 
-
-
     public static void main(String[] args) {
-        DriverUtil.init();
         SpringApplication.run(SpringbootMicroservicesApplication.class, args);
     }
+
+
 
     @EventListener(ContextClosedEvent.class)
     public void onContextClosedEvent(ContextClosedEvent contextClosedEvent) {

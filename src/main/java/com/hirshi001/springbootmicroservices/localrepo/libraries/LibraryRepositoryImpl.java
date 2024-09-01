@@ -1,17 +1,16 @@
 package com.hirshi001.springbootmicroservices.localrepo.libraries;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.hirshi001.springbootmicroservices.localrepo.AbstractLocalRepo;
-import com.nimbusds.jose.shaded.gson.*;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.attribute.FileTime;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Consumer;
 
 @Slf4j
 public class LibraryRepositoryImpl extends AbstractLocalRepo<Library> implements LibraryRepository {
@@ -43,16 +42,6 @@ public class LibraryRepositoryImpl extends AbstractLocalRepo<Library> implements
                 result.add(librariesByName.get(libName));
             }
         }
-        return result;
-    }
-
-    @Override
-    public List<Library> getAll(List<Library> result) {
-        checkReload();
-        if (result == null) {
-            result = new ArrayList<>();
-        }
-        result.addAll(librariesByName.values());
         return result;
     }
 

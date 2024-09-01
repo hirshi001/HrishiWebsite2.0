@@ -1,6 +1,5 @@
 package com.hirshi001.springbootmicroservices.localrepo.projects;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

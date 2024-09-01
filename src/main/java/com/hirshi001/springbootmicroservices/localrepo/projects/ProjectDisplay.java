@@ -11,6 +11,13 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ProjectDisplay {
 
+
+    public ProjectDisplay(Project project) {
+        setName(project.getName());
+        setId(project.getId());
+        setImage(project.getImage());
+    }
+
     private int id;
     private String name;
     private String image;
