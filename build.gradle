@@ -1,12 +1,8 @@
-
-
-
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.1.2'
     id 'io.spring.dependency-management' version '1.1.2'
     id "io.freefair.lombok" version "8.2.2"
-    id 'org.hidetake.ssh' version '2.11.2'
 }
 
 group = 'com.example'
@@ -48,25 +44,4 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
-}
-
-
-remotes {
-    server {
-        host = '54.151.47.62'
-        user = 'ec2-user'
-        identity = file('/Users/hrishikesh/secretkeypairname.pem')
-    }
-}
-
-tasks.register('pushServer') {
-    dependsOn(bootJar)
-    doLast {
-        // Copy the jar to the server using sftp
-        ssh.run {
-            session(remotes.server) {
-                put from: "${project.rootDir}/build/libs/SpringbootMicroservices-${version}.jar", into: '/home/ec2-user/SpringbootMicroservices.jar'
-            }
-        }
-    }
 }
